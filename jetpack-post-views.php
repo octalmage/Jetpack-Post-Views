@@ -522,17 +522,22 @@ class Jetpack_Post_Views extends WP_Widget {
 
         <?php
         global $post;
+
+        $jetpackpostviewscache=get_transient( 'jetpackpostviewscache' );
+        if ( !$jetpackpostviewscache ) 
+        {
+    
         extract ( $args );
 
         $title         = apply_filters('widget_title', $instance['title'] );
         $results       = "";
         $exclude_posts = explode( ',', $instance['exclude_posts'] );
 
-        echo $before_widget;
+        $jetpackpostviewscache .= $before_widget;
 
         // Print the title
         if ( $title ) {
-            echo $before_title . $title . $after_title;
+            $jetpackpostviewscache .= $before_title . $title . $after_title;
         }
 
         // Get all categories
@@ -604,9 +609,15 @@ class Jetpack_Post_Views extends WP_Widget {
         }
         $results .= "</ul>";
 
-        echo $results;
+        $jetpackpostviewscache .= $results;
 
-        echo $after_widget;
+        $jetpackpostviewscache .= $after_widget;
+    
+        set_transient( 'jetpackpostviewscache', $jetpackpostviewscache, 600 );
+    
+    }//end caching
+        
+    echo $jetpackpostviewscache;
     }
 
     /* UPDATE WIDGET OPTIONS */
