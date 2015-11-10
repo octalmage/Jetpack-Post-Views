@@ -44,7 +44,7 @@ class Jetpack_Post_Views extends WP_Widget {
 
     // Private variables
     var $version = '1.1.0';
-    var $apiUrl  = 'http://stats.wordpress.com/csv.php';
+    var $apiUrl  = 'https://stats.wordpress.com/csv.php';
     var $apiArgs = array(
         'table'     => 'postviews',
         'days'      => -1,
